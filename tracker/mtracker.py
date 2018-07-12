@@ -25,8 +25,15 @@ def get_all_user_requests():
         })
 
 @app.route('/api/v1/users/requests/<requestId>', methods = ['GET'])
-def get_a_request_for_user():
-    return ''
+def get_a_request_for_user(requestId):
+    for single_request in requests:
+        if single_request.get(id) == requestId:
+            return jsonify({'request': single_request})
+
+    return jsonify({
+        'status': 'Fail',
+        'message': 'That request doesn\'t exist'
+    })
 
 @app.route('/api/v1/users/requests', methods =['POST'])
 def create_a_request():
