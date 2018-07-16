@@ -1,5 +1,5 @@
 from flask import Flask,  json, request, jsonify
-from models import Request,requests, User, users
+from .models import Request,requests, User, users
 import datetime
 
 app = Flask(__name__)
@@ -32,17 +32,41 @@ def get_a_request_for_user(requestId):
 
     return jsonify({
         'status': 'Fail',
-        'message': 'That request doesn\'t exist'
+        'message': 'That request doesnot exist'
     })
 
 @app.route('/api/v1/users/requests', methods =['POST'])
 def create_a_request():
-    
-    return ''
+    request_data = request.get_json()
+    employeeName = request_data.get('employeeName')
+    requestId = len (requests) +1
+    description = request_data.get('description')
+    category = request_data.get('category')
+    requestDate = request_data.get('requestDate')
+
+
+    if not employeeName or employeeName == "" or employeeName == type (int):
+        return jsonify({'message':'Employee Name is required'})
+
+    if not description or description ==" ":
+        return jsonify({'message': 'Resquest description is required'})
+        
+    if not category or category=='':
+        return jsonify({'message':'Request Category is required'})
+
+    if not requestDate or requestDate =='':
+        return jsonify({'message':'When was the request logged?'})
+
+    new_request =Request(requestId, description,employeeName, category, requestDate)
+    requests.append(new_request)
+
+    return jsonify({'message':'Hello {employeeName}! Request succesfully created'})
+
 
 @app.route('/api/v1/users/requests/<requestId>', methods =['PUT'])
 def modify_a_request():
-    return ''
+    
 
 if __name__=='__main__':
     app.run(debug=True)
+
