@@ -64,8 +64,31 @@ def create_a_request():
 
 
 @app.route('/api/v1/users/requests/<requestId>', methods =['PUT'])
-def modify_a_request():
-    
+def modify_a_request(requestId):
+    if len(requests)<1:
+        return jsonify({
+            'status':'Fail',
+            'Sorry':"No rquests to modify"
+        })
+    if len(requests)>=1:
+        request_data=request.get_json()
+        employeeName=request_data.get('employeeName')
+        description=request_data.get('description')
+        category= request_data.get('category')
+        requestDate= request_data.get('requestDate')
+
+        for my_request in requests:
+            if my_request.requestId==int(requestId):
+                my_request.employeeName= employeeName
+                my_request.description= description
+                my_request.category= category
+                my_request.requestDate= requestDate
+            return jsonify({
+                'request':my_request.__dict__,
+                'status': 'OK',
+                'Congratulations': 'You have completed modification',
+            })
+        
 
 if __name__=='__main__':
     app.run(debug=True)
