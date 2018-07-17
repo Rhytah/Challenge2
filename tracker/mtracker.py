@@ -1,6 +1,6 @@
 from flask import Flask,  json, request, jsonify
 from .models import Request,requests, User, users
-import datetime
+
 
 app = Flask(__name__)
 
@@ -8,16 +8,16 @@ app.config['SECRET_KEY'] ='thisissecret'
 
 @app.route('/api/v1/users', methods=['GET'])
 def get_all_user():
-    return ''
+    pass
 
 @app.route('/api/v1/users/<userId>', methods=['GET'])
 def get_one_user():
-    return ''
+    pass
 
 @app.route('/api/v1/users/requests', methods=['GET'])
 def get_all_user_requests():
     if len(requests) >0:
-        return jsonify({'messgae': requests})
+        return jsonify({'message': requests})
     else:
         return jsonify({
             'status': 'Fail',
@@ -45,10 +45,10 @@ def create_a_request():
     requestDate = request_data.get('requestDate')
 
 
-    if not employeeName or employeeName == "" or employeeName == type (int):
+    if not employeeName or employeeName == ' ' or employeeName == type (int):
         return jsonify({'message':'Employee Name is required'})
 
-    if not description or description ==" ":
+    if not description or description == ' ' :
         return jsonify({'message': 'Resquest description is required'})
         
     if not category or category=='':
@@ -60,7 +60,7 @@ def create_a_request():
     new_request =Request(requestId, description,employeeName, category, requestDate)
     requests.append(new_request)
 
-    return jsonify({'message':'Hello {employeeName}! Request succesfully created'})
+    return jsonify({'message':f'Hello {employeeName}! Request succesfully created'})
 
 
 @app.route('/api/v1/users/requests/<requestId>', methods =['PUT'])
@@ -87,8 +87,8 @@ def modify_a_request(requestId):
                 'request':my_request.__dict__,
                 'status': 'OK',
                 'Congratulations': 'You have completed modification',
-            })
-        
+            })    
+
 
 if __name__=='__main__':
     app.run(debug=True)
