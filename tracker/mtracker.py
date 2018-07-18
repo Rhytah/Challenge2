@@ -1,10 +1,10 @@
 from flask import Flask,  json, request, jsonify
 from .models import Request,requests, User, users
-
+import re
 
 app = Flask(__name__)
 
-app.config['SECRET_KEY'] ='thisissecret'
+#app.config['SECRET_KEY'] ='thisissecret'
 
 @app.route('/api/v1/users', methods=['GET'])
 def get_all_user():
@@ -13,6 +13,53 @@ def get_all_user():
 @app.route('/api/v1/users/<userId>', methods=['GET'])
 def get_one_user():
     pass
+
+@app.route('/auth/register', methods =['POST'])
+def register_user():
+    user_data=request.get_json() #getting user data
+    name = user_data.get('name')
+    email = user_data.get('email')
+    password = user_data.get('password')
+    userName = user_data.get('userName')
+
+    if not user_data:
+        return jsonify({'message':'All feilds are required'})
+
+    if not name or name =='' or name == type(int) or len(name) < 3:
+        return jsonify({'message':'Invalid input'})
+
+    if not re.match(r'([\w\.-]+)@([\w\.-]+)(\.[\w\.]+$)',email):
+        return jsonify({
+            'status':'Fail',
+            'message': 'Enter valid email'})
+    
+    if not userName or userName =='' or userName==type(int):
+        return jsonify({'message':'Invalid User Name'})
+
+    if not password or password == '' or len(password)<8:
+        return jsonify({'message':'Password is not strong enough'})
+
+    user_data['id']= len(users)  #add user(S)
+    users.append(user_data)
+    return jsonify({'message':f'User {userName} has been registered'})
+
+@app.route('/auth/login', methods=['POST'])
+def login_user():
+    user_data=request.get_json()
+    userName = str(user_data.get('userName')).strip()
+    password = user_data.get('password')
+
+    if not user_data:
+        return jsonify({'Missing':'Required fields'})
+
+    if not userName or userName=='':
+        return jsonify({'Missing':'UserName is required'})
+
+    if not password or password=='':
+        return jsonify({'Missing': 'Password required'})
+    
+    return jsonify({'message':f'Welcome {userName}. You are logged in'})
+
 
 @app.route('/api/v1/users/requests', methods=['GET'])
 def get_all_user_requests():
