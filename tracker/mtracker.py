@@ -38,6 +38,9 @@ def get_a_request_for_user(requestId):
 @app.route('/api/v1/users/requests', methods =['POST'])
 def create_a_request():
     request_data = request.get_json()
+    if not request_data:
+        return jsonify({'message':'All feilds are required'})
+        
     employeeName = request_data.get('employeeName')
     requestId = len (requests) +1
     description = request_data.get('description')
