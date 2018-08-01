@@ -1,10 +1,10 @@
 language: python
 python:
-   -"3.6"
-install: 
-   - pip install -r requirements.txt
+  - "3.6"
+install:
+  - pip install -r requirements.txt
 virtualenv:
-script: 
-  -nosetests --with-coverage
+script:
+  - nosetests --with-coverage
 after_success:
   - coveralls
