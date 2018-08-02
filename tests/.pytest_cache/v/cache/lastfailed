@@ -1,0 +1,4 @@
+{
+  "test_requests.py::RequestTestCase::test_get_all_requests": true,
+  "test_requests.py::RequestTestCase::test_get_single_request": true
+}
