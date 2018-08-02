@@ -1,0 +1,4 @@
+{
+  "tests/test_flaskr.py::test_empty_db": true,
+  "tests/test_tracker.py::test_empty_db": true
+}

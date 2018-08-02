@@ -1,0 +1,4 @@
+[
+  "tests/test_models.py::Testmodels::test_register_user",
+  "tests/test_tracker.py::test_empty_db"
+]
