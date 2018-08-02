@@ -1,7 +1,7 @@
 from tracker.mtracker import app
 import unittest
 
-class BaseTest(unittest.TestCase):
+class BaseTestCase(unittest.TestCase):
     def setUp(self):
         self.test_client = app.test_client()
         self.user_data = {
