@@ -4,7 +4,4 @@ python:
 install:
   - pip install -r requirements.txt
 virtualenv:
-script:
-  - nosetests --with-coverage
-after_success:
-  - coveralls
+
