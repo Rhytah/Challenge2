@@ -27,7 +27,7 @@ def get_all_user_requests():
 @app.route('/api/v1/users/requests/<requestId>', methods = ['GET'])
 def get_a_request_for_user(requestId):
     for single_request in requests:
-        if single_request.get(id) == requestId:
+        if single_request.json.get(id) == requestId:
             return jsonify({'request': single_request})
 
     return jsonify({
