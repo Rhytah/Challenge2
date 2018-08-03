@@ -25,10 +25,10 @@ class User():
 users =[]
 
 class Request():
-    def __init__(self,requestId,description,requestOrigin,category,requestDate):
+    def __init__(self,requestId,description,employeeName,category,requestDate):
         self.requestId= requestId 
         self.description= description
-        self.requestOrigin =requestOrigin
+        self.employeeName = employeeName
         self.category =category
         self.requestDate = requestDate 
 
@@ -38,8 +38,8 @@ class Request():
     def get_description(self):
         return self.description
 
-    def get_requestOrigin(self):
-        return self.requestOrigin
+    def get_employeeName(self):
+        return self.employeeName
 
     def get_category(self):
         return self.category
@@ -54,7 +54,7 @@ class Request():
             new_requestInput = {
                 'requestId':requestId,
                 'description': self.description,
-                'requestOrigin': self.requestOrigin,
+                'employeeName': self.employeeName,
                 'category': self.category,
                 'requestDate':self.requestDate
                 
