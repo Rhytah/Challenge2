@@ -1,5 +1,6 @@
 from flask import Flask,  json, request, jsonify
 from .models import Request,requests, User, users
+import re
 
 
 app = Flask(__name__)
@@ -91,7 +92,59 @@ def modify_a_request(requestId):
                 'request':my_request.__dict__,
                 'status': 'OK',
                 'Congratulations': 'You have completed modification',
-            })    
+            })  
+
+@app.route('/auth/register', methods=['POST']) 
+def register_user():
+    user_data= request.get_json()  #getting user data
+    name=user_data.get('name')
+    email = user_data.get('email')
+    userName =str(user_data.get('userName')).strip()
+    department =user_data.get('department')
+    password = user_data.get('password')
+    userId = len(users) + 1
+
+    if not user_data:
+        return jsonify({'message':'All fields are required'})
+
+    if not name or name==" " or name == type(int) or len(name) <3:
+        return jsonify({'message': "Incorrect Name"})
+
+    if not re.match(r"([\w\.-]+)@([\w\.-]+)(\w\.]+$)",email):
+        return jsonify({
+            'status': 'Fail',
+            'message': 'Enter a valid email'})
+
+    if not userName or userName == '' :
+        return jsonify({'message':'Invalid Username'})
+
+    if not password or password=='' or len(password) <8:
+        return jsonify({'message':"Incorrect Password"})
+
+    new_user =User(userId,userName,department,email,password)
+    users.append(new_user)  
+
+    return jsonify({'message': f'User {userName} has successfully been created'}) 
+
+@app.route('/auth/login', methods=['POST'])
+def login_user():
+    user_data = request.get_json()
+    userName= str(user_data.get('userName')).strip()
+    password = user_data.get('password')
+
+    if not user_data:
+        return jsonify({"Missing":'All fields are required'}),400
+
+    if not userName :
+        return jsonify({'Missing':'User Name is required'}),400
+    
+    if not password or password =='':
+        return jsonify({'Missing':'Password is required to login'}),400
+    
+    return jsonify({'message':f'Welcome {userName}. You are now logged in'}), 200
+
+
+
 
 
 #if __name__=='__main__':
