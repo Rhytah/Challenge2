@@ -1,4 +1,6 @@
 from tracker.mtracker import app
+from tracker.models import User, Request, users, requests
+
 import unittest
 
 class BaseTestCase(unittest.TestCase):
@@ -7,7 +9,7 @@ class BaseTestCase(unittest.TestCase):
         self.user_data = {
             "user_id": 1,
             "name": "Rita",
-            "email":"rita2@hotmail.com",
+            
             "userName": "Rhytah",
             "password": "thisisandela"
         }
@@ -16,16 +18,23 @@ class BaseTestCase(unittest.TestCase):
             "password":"thisisandela"
         }
         self.request_data={
-            "requestId":1,
+            "requestId":'1',
             "employeeName":"Seth",
-            "description":"finance",
+            "description":"Mouse failed to work properly",
             "category":"Computer-Peripheral",
             "requestDate":"12/07/2018",
             "title": "Replace Mouse",
         }
-    def tearDown(self):
-        requests = []
-        users = []
 
+
+    def default(self, o):
+        try:
+            iterable = iter(o)
+        except TypeError:
+            pass
+        else:
+            return list(iterable)
+
+        
 if __name__ == "__main__":
     unittest.main()
