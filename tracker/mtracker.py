@@ -17,24 +17,32 @@ def get_one_user():
 
 @app.route('/api/v1/users/requests', methods=['GET'])
 def get_all_user_requests():
-    if len(requests) >0:
-        return jsonify({'message': requests})
-    else:
+    if len(requests) <1:
         return jsonify({
             'status': 'Fail',
-            'message': 'There are no requests found in the system'
-        })
+            'message':'You have no requests'}),404
+    
+    if len(requests)>= 1:
+        return jsonify({
+            'status': 'Pass',
+            'message': 'You have successfully fetched requests.',
+            'requests': [
+                my_request.__dict__ for my_request in requests
+            ]
+        }),200
+    return jsonify({"message": 'Failed to get any requests'}),400
 
 @app.route('/api/v1/users/requests/<requestId>', methods = ['GET'])
 def get_a_request_for_user(requestId):
-    for single_request in requests:
-        if single_request.get(id) == requestId:
-            return jsonify({'request': single_request})
+    for my_request in requests:
+        if my_request.requestId == requestId:
+            return jsonify({'Request': my_request.__dict__}),200
 
-    return jsonify({
-        'status': 'Fail',
-        'message': 'That request doesnot exist'
-    })
+    if len(requests) <1:
+        return jsonify({
+            'status':'Fail',
+            'message':'No request in system'}),404
+
 
 @app.route('/api/v1/users/requests', methods =['POST'])
 def create_a_request():
@@ -51,16 +59,16 @@ def create_a_request():
 
 
     if not employeeName or employeeName == ' ' or employeeName == type (int):
-        return jsonify({'message':'Employee Name is required'})
+        return jsonify({'message':'Employee Name is required'}),400
 
     if not description or description == ' ' :
-        return jsonify({'message': 'Resquest description is required'})
+        return jsonify({'message': 'Resquest description is required'}),400
         
     if not category or category=='':
-        return jsonify({'message':'Request Category is required'})
+        return jsonify({'message':'Request Category is required'}),400
 
     if not requestDate or requestDate =='':
-        return jsonify({'message':'When was the request logged?'})
+        return jsonify({'message':'When was the request logged?'}),400
 
     new_request =Request(requestId, description,employeeName, category, requestDate)
     requests.append(new_request)
@@ -98,7 +106,6 @@ def modify_a_request(requestId):
 def register_user():
     user_data= request.get_json()  #getting user data
     name=user_data.get('name')
-    email = user_data.get('email')
     userName =str(user_data.get('userName')).strip()
     department =user_data.get('department')
     password = user_data.get('password')
@@ -110,18 +117,14 @@ def register_user():
     if not name or name==" " or name == type(int) or len(name) <3:
         return jsonify({'message': "Incorrect Name"})
 
-    if not re.match(r"([\w\.-]+)@([\w\.-]+)(\w\.]+$)",email):
-        return jsonify({
-            'status': 'Fail',
-            'message': 'Enter a valid email'})
-
+   
     if not userName or userName == '' :
         return jsonify({'message':'Invalid Username'})
 
     if not password or password=='' or len(password) <8:
         return jsonify({'message':"Incorrect Password"})
 
-    new_user =User(userId,userName,department,email,password)
+    new_user =User(userId,userName,department,password)
     users.append(new_user)  
 
     return jsonify({'message': f'User {userName} has successfully been created'}) 

@@ -1,10 +1,9 @@
 
 class User():
-    def __init__(self, userId,userName,department,email,password):
+    def __init__(self, userId,userName,department,password):
         self.userId =userId
         self.userName = userName 
         self.department = department
-        self.email= email
         self.password = password
 
     def get_userId(self):
@@ -16,8 +15,7 @@ class User():
     def get_department(self):
         return self.department
 
-    def get_email(self):
-        return self.email
+
 
     def get_password(self):
         return self.password
@@ -52,7 +50,7 @@ class Request():
         new_requestInput = {}
         if len(requests)>0 and requestId<= len(requests):
             new_requestInput = {
-                'requestId':requestId,
+                'requestId':self.requestId,
                 'description': self.description,
                 'employeeName': self.employeeName,
                 'category': self.category,
@@ -65,4 +63,5 @@ class Request():
 
     def __repr__(self):
         return repr(self.__dict__)
+        
 requests=[]

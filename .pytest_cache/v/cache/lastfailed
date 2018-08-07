@@ -1,4 +1,7 @@
 {
   "tests/test_flaskr.py::test_empty_db": true,
+  "tests/test_requests.py::RequestTestCase::test_get_a_request_for_a_user": true,
+  "tests/test_requests.py::RequestTestCase::test_get_a_request_for_user": true,
+  "tests/test_requests.py::RequestTestCase::test_get_single_request": true,
   "tests/test_tracker.py::test_empty_db": true
 }

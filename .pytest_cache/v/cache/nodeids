@@ -1,4 +1,7 @@
 [
   "tests/test_models.py::Testmodels::test_register_user",
-  "tests/test_tracker.py::test_empty_db"
+  "tests/test_requests.py::RequestTestCase::test_create_request",
+  "tests/test_requests.py::RequestTestCase::test_get_a_request_for_a_user",
+  "tests/test_requests.py::RequestTestCase::test_get_all_requests",
+  "tests/test_users.py::UserTestCase::test_register_user"
 ]
