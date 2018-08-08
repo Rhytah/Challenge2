@@ -34,9 +34,13 @@ def get_all_user_requests():
 
 @app.route('/api/v1/users/requests/<requestId>', methods = ['GET'])
 def get_a_request_for_user(requestId):
+    
     for my_request in requests:
-        if my_request.requestId == requestId:
-            return jsonify({'Request': my_request.__dict__}),200
+        
+        if (my_request.requestId == requestId):
+            print (my_request)
+    
+
 
     if len(requests) <1:
         return jsonify({
