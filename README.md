@@ -1,6 +1,6 @@
 # Challenge2
 
-[![Build Status](https://travis-ci.org/Rhytah/Challenge2.svg?branch=tests)](https://travis-ci.org/Rhytah/Challenge2)  [![Coverage Status](https://coveralls.io/repos/github/Rhytah/Challenge2/badge.svg)](https://coveralls.io/github/Rhytah/Challenge2)
+[![Build Status](https://travis-ci.org/Rhytah/Challenge2.svg?branch=tests)](https://travis-ci.org/Rhytah/Challenge2)  [![Coverage Status](https://coveralls.io/repos/github/Rhytah/Challenge2/badge.svg)](https://coveralls.io/github/Rhytah/Challenge2) [![Maintainability](https://api.codeclimate.com/v1/badges/216e68dc14402d644298/maintainability)](https://codeclimate.com/github/Rhytah/Challenge2/maintainability)
 
 Maintenance Tracker API
 
