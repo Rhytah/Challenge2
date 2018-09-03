@@ -1,6 +1,6 @@
 # Challenge2
 
-[![Build Status](https://travis-ci.org/Rhytah/Challenge2.svg?branch=tests)](https://travis-ci.org/Rhytah/Challenge2)
+[![Build Status](https://travis-ci.org/Rhytah/Challenge2.svg?branch=tests)](https://travis-ci.org/Rhytah/Challenge2)  [![Coverage Status](https://coveralls.io/repos/github/Rhytah/Challenge2/badge.svg?branch=tests)](https://coveralls.io/github/Rhytah/Challenge2)
 Maintenance Tracker API
 
 Maintenance Tracker-Api is an interface that comprises of a set of endpoints that use data structures to store data in memory
