@@ -7,16 +7,9 @@ app = Flask(__name__)
 
 app.config['SECRET_KEY'] ='thisissecret'
 
-@app.route('/api/v1/users', methods=['GET'])
-def get_all_user():
-    pass
-
-@app.route('/api/v1/users/<userId>', methods=['GET'])
-def get_one_user():
-    pass
-
 @app.route('/api/v1/users/requests', methods=['GET'])
 def get_all_user_requests():
+   
     if len(requests) <1:
         return jsonify({
             'status': 'Fail',
@@ -34,33 +27,30 @@ def get_all_user_requests():
 
 @app.route('/api/v1/users/requests/<requestId>', methods = ['GET'])
 def get_a_request_for_user(requestId):
-    
-    for my_request in requests:
-        
-        if (my_request.requestId == requestId):
-            print (my_request)
-    
 
-
-    if len(requests) <1:
+    if len(requests)<1:
         return jsonify({
-            'status':'Fail',
-            'message':'No request in system'}),404
+            "Status":"Fail",
+            "message":"Request not found"
+        }), 404
 
+    for my_request in requests:
+        if my_request.requestId == requestId:
+            return my_request,200
 
+    return jsonify({"input error":"Request not found, check id used"})
+   
 @app.route('/api/v1/users/requests', methods =['POST'])
 def create_a_request():
-    request_data = request.get_json()
-    
-    if not request_data:
-        return jsonify({'message':'All feilds are required'})
-        
+    request_data = request.get_json()        
     employeeName = request_data.get('employeeName')
     requestId = len (requests) +1
     description = request_data.get('description')
     category = request_data.get('category')
     requestDate = request_data.get('requestDate')
 
+    if not request_data:
+        return jsonify({'message':'All feilds are required'}),400
 
     if not employeeName or employeeName == ' ' or employeeName == type (int):
         return jsonify({'message':'Employee Name is required'}),400
@@ -79,9 +69,9 @@ def create_a_request():
 
     return jsonify({'message':f'Hello {employeeName}! Request succesfully created'})
 
-
 @app.route('/api/v1/users/requests/<requestId>', methods =['PUT'])
 def modify_a_request(requestId):
+  
     if len(requests)<1:
         return jsonify({
             'status':'Fail',

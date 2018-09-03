@@ -25,16 +25,6 @@ class BaseTestCase(unittest.TestCase):
             "requestDate":"12/07/2018",
             "title": "Replace Mouse",
         }
-
-
-    def default(self, o):
-        try:
-            iterable = iter(o)
-        except TypeError:
-            pass
-        else:
-            return list(iterable)
-
-        
+     
 if __name__ == "__main__":
     unittest.main()
