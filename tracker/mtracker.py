@@ -5,7 +5,7 @@ import re
 
 app = Flask(__name__)
 
-app.config['SECRET_KEY'] ='thisissecret'
+#app.config['SECRET_KEY'] ='thisissecret'
 
 @app.route('/api/v1/users/requests', methods=['GET'])
 def get_all_user_requests():
