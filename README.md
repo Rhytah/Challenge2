@@ -34,9 +34,9 @@ $ venv\Scripts\activate
 ```
 $python app.py
 ```
-**Start app in terminal**
+**Test app in terminal**
 ```
-$python pytest
+$pytest
 ```
 ## Versioning
 ```
